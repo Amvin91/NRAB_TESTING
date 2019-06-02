@@ -1,0 +1,42 @@
+CREATE DATABASE nrab;
+USE nrab;
+CREATE TABLE staffs{
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+};
+
+
+CREATE TABLE university (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+
+INSERT INTO nrab.university(name) VALUES ('LATROBE UNIVERSITY');
+INSERT INTO nrab.university(name) VALUES ('WESTERN SYDNEY');
+
+create table Room(
+    roomID char(4),
+    university VARCHAR(20), 
+    hasEcho int(1) check(hasEcho in(1,0)),
+    hasTouchScreen int(1) check(hasTouchScreen in(1,0)),
+    hasComputer int(1) check(hasComputer in(1,0)),
+    primary key(roomID),
+    foreign key(university) references university(name)
+);
+INSERT INTO room (roomID, university, hasEcho, hasTouchScreen, hasComputer) VALUES ('1.02','LATROBE UNIVERSITY', 1,1,1);
+INSERT INTO room (roomID, university, hasEcho, hasTouchScreen, hasComputer) VALUES ('1.03','LATROBE UNIVERSITY', 1,1,0);
+INSERT INTO room (roomID, university, hasEcho, hasTouchScreen, hasComputer) VALUES ('2.01','WESTERN SYDNEY', 1,1,1);
+INSERT INTO room (roomID, university, hasEcho, hasTouchScreen, hasComputer) VALUES ('2.02','WESTERN SYDNEY', 1,1,0);
+
+
+create table Subject(
+    subCode VARCHAR(7),
+    university VARCHAR(20),
+    subName VARCHAR(50),
+    primary key(subCode),
+    foreign key(university) references university(name)
+);
+INSERT INTO Subject (subCode, university, subName) VALUES ('CSE3NSW', 'LATROBE UNIVERSITY', 'NETWORKS SYSTEMS AND WEB SECURITY');
+INSERT INTO Subject (subCode, university, subName) VALUES ('CSE3OAD', 'LATROBE UNIVERSITY', 'OBJECT-ORIENTED APPLICATION DEVELOPMENT');
